@@ -1,0 +1,22 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: data-import-job
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: import
+        image: python:3.9
+        resources:
+          requests: {cpu: 50m, memory: 64Mi}
+          limits: {cpu: 200m, memory: 128Mi}
+        command: ["python", "-c"]
+        args:
+          - |
+            import time
+            print("Starting data import...")
+            time.sleep(3)
+            print("Processing 1000 records...")
+            print("Import completed!")

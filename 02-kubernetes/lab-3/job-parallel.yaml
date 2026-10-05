@@ -1,0 +1,25 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: batch-export-job
+spec:
+  parallelism: 4
+  completions: 4
+  backoffLimit: 2
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: export
+        image: python:3.9
+        resources:
+          requests: {cpu: 50m, memory: 64Mi}
+          limits: {cpu: 200m, memory: 128Mi}
+        command: ["python", "-c"]
+        args:
+          - |
+            import os, time
+            pod = os.getenv('HOSTNAME', 'unknown')
+            print(f"Pod {pod}: Exporting shard...")
+            time.sleep(5)
+            print(f"Pod {pod}: Export completed!")
