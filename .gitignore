@@ -2,3 +2,11 @@
 !.gitignore
 !.python-version
 __pycache__/
+*.csv
+*.bin
+*.env
+delete.json
+*.csv
+*.bin
+*.env
+delete.json
